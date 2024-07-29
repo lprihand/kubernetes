@@ -1,7 +1,7 @@
-# KUBERNETES
+# KUBERNETES INSTALLATION 
 
 This is tutorial to setup kubernetes cluster one master with two worker nodes on VMWare Workstation. I used Linux Ubuntu 24.04 Server edition with setup of two LAN ethernet. First one using NAT and second one using Bridge with manual address. 
-Since I like to use NetworkManager in order to use nmcli command therefore some configuration to enable NetworkManager prior installing Kubernetes.
+Since I like to use NetworkManager in order to use nmcli command therefore some configuration to enable NetworkManager prior installing Kubernetes. Ubuntu Server doesn't come with network-manager by default unlike desktop version.
 
 ```
 sudo apt update
@@ -129,4 +129,19 @@ Finally apply below command on each Worker node
 sudo kubeadm join 192.168.116.215:6443 --token axunvk.92d9uxlk2rvlmk6l \
         --discovery-token-ca-cert-hash sha256:941d4d2190cbb615faa944b57de3933eb1bc1ea98e21d1ff30224b141d5ae342 
 
+```
+
+Check on Master node if cluster are ready
+
+```
+lprihand@master-k8s:~$ kubectl get node 
+NAME         STATUS   ROLES           AGE    VERSION
+master-k8s   Ready    control-plane   2d2h   v1.30.3
+node1-k8s    Ready    <none>          2d2h   v1.30.3
+node2-k8s    Ready    <none>          2d2h   v1.30.3
+lprihand@master-k8s:~$ kubectl get node -o wide
+NAME         STATUS   ROLES           AGE    VERSION   INTERNAL-IP       EXTERNAL-IP   OS-IMAGE           KERNEL-VERSION     CONTAINER-RUNTIME
+master-k8s   Ready    control-plane   2d2h   v1.30.3   192.168.116.215   <none>        Ubuntu 24.04 LTS   6.8.0-39-generic   containerd://1.7.19
+node1-k8s    Ready    <none>          2d2h   v1.30.3   192.168.116.216   <none>        Ubuntu 24.04 LTS   6.8.0-39-generic   containerd://1.7.19
+node2-k8s    Ready    <none>          2d2h   v1.30.3   192.168.116.217   <none>        Ubuntu 24.04 LTS   6.8.0-39-generic   containerd://1.7.19
 ```
