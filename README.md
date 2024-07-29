@@ -28,3 +28,33 @@ sudo systemctl stop systemd-networkd.service
 
 sudo reboot 
 ```
+
+check if you now are able to use below command line 
+
+```
+nmcli 
+nmcli device
+nmcli connection
+# if you like to edit configuration in UI mode
+nmtui 
+```
+
+Now we need to disable SWAP, reason to disable it is Kubernetes need to ensure performance, as using SWAP will slow the performance (for more detail please dig it from google). 
+
+```
+sudo swapoff -a
+```
+
+to disable SWAP permanently, kindly modify swap line configuration with commenting the line 
+
+```
+sudo vim /etc/fstab
+
+#/swap.img      none    swap    sw      0       0
+```
+
+and then mount it again 
+
+```
+mount -a
+```
