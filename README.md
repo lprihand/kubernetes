@@ -58,7 +58,7 @@ and then mount it again
 ```
 mount -a
 ```
-Apply below on all VM nodes
+Apply below on all VM nodes, kindly note that here I used containerd.
 
 ```
 #sysctl params required by setup, params persist across reboots
